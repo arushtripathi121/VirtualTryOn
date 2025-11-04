@@ -1,4 +1,5 @@
 |-- client
+    |-- .env
     |-- .gitignore
     |-- eslint.config.js
     |-- index.html
@@ -13,14 +14,31 @@
         |-- assets
             |-- react.svg
         |-- components
+        |-- hooks
+            |-- api.js
         |-- index.css
         |-- main.jsx
         |-- pages
+            |-- HomePage.jsx
             |-- LandingPage.jsx
         |-- react-bits-components
             |-- GridMotion.css
             |-- GridMotion.jsx
     |-- vite.config.js
 |-- server
+    |-- .env
+    |-- .gitignore
+    |-- config
+        |-- database.js
+        |-- googleConfig.js
+    |-- controllers
+        |-- authController.js
+    |-- index.js
+    |-- middlewares
+        |-- authMiddleware.js
+    |-- models
+        |-- userModel.js
     |-- package-lock.json
     |-- package.json
+    |-- routers
+        |-- router.js

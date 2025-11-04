@@ -1,7 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import GridMotion from '../react-bits-components/GridMotion';
+import { useGoogleLogin } from '@react-oauth/google';
+import { googleAuth } from '../hooks/api';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+
+    const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
+    const handleGoogleResponse = async (authResult) => {
+        try {
+            setLoading(true);
+            if (authResult?.code) {
+                const result = await googleAuth(authResult.code);
+                const { email, name, image } = result.data.user;
+                const token = result.data.token;
+                setLoading(false);
+                navigate('/home');
+            }
+        } catch (e) {
+            setLoading(false);
+            console.error('Google sign-in failed', e);
+        }
+    };
+
+    const googleLogin = useGoogleLogin({
+        flow: 'auth-code',
+        onSuccess: handleGoogleResponse,
+        onError: handleGoogleResponse,
+    });
+
 
     const items = [
         'https://images.unsplash.com/photo-1556755211-40b3588fe14e?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=626',
@@ -46,8 +75,17 @@ const LandingPage = () => {
                             Upload your photo, explore styles, and own your look with our next-gen virtual try-on experience.
                         </div>
                     </div>
-                    <div className='bg-white text-center px-10 py-2 mt-10 rounded-3xl font-semibold shadow-2xl cursor-pointer hover:scale-125 transition:transform duration-500'>
-                        Get Started
+                    <div
+                        onClick={!loading ? () => googleLogin() : undefined}
+                        className="bg-white text-center px-10 py-2 mt-10 rounded-3xl font-semibold shadow-2xl cursor-pointer hover:scale-125 transition-transform duration-500 w-48"
+                    >
+                        {loading ? (
+                            <div className="flex items-center justify-center">
+                                <div className="h-6 w-6 border-4 border-gray-300 border-t-fuchsia-600 rounded-full animate-spin"></div>
+                            </div>
+                        ) : (
+                            "Get Started"
+                        )}
                     </div>
                 </div>
             </section>
