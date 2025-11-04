@@ -1,0 +1,26 @@
+|-- client
+    |-- .gitignore
+    |-- eslint.config.js
+    |-- index.html
+    |-- package-lock.json
+    |-- package.json
+    |-- public
+        |-- vite.svg
+    |-- README.md
+    |-- src
+        |-- App.css
+        |-- App.jsx
+        |-- assets
+            |-- react.svg
+        |-- components
+        |-- index.css
+        |-- main.jsx
+        |-- pages
+            |-- LandingPage.jsx
+        |-- react-bits-components
+            |-- GridMotion.css
+            |-- GridMotion.jsx
+    |-- vite.config.js
+|-- server
+    |-- package-lock.json
+    |-- package.json
