@@ -33,7 +33,7 @@ const LandingPage = () => {
                     <div className="absolute inset-0 bg-none" />
                 </div>
 
-                <div className="relative z-10 flex flex-col justify-center min-h-screen min-w-screen">
+                <div className="relative z-10 flex flex-col justify-center items-center min-h-screen min-w-screen">
                     <div className="absolute top-6 left-10 text-white text-4xl font-semibold tracking-wide">
                         Tryelle
                     </div>
@@ -45,6 +45,9 @@ const LandingPage = () => {
                         <div className="text-white text-4xl font-semibold max-w-6xl mx-auto leading-snug">
                             Upload your photo, explore styles, and own your look with our next-gen virtual try-on experience.
                         </div>
+                    </div>
+                    <div className='bg-white text-center px-10 py-2 mt-10 rounded-3xl font-semibold shadow-2xl cursor-pointer hover:scale-125 transition:transform duration-500'>
+                        Get Started
                     </div>
                 </div>
             </section>
