@@ -47,9 +47,7 @@ const LandingPage = () => {
         'https://images.unsplash.com/photo-1666468984132-51a5de1d6d44?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=626',
         'https://images.unsplash.com/photo-1700687517672-217ddb1a459a?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=626',
         'https://plus.unsplash.com/premium_photo-1734388423025-2ed79cfb1ed9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExOXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=60&w=500'
-    ];
-
-
+    ]
 
     return (
         <div>
