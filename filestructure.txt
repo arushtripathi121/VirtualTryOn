@@ -29,6 +29,7 @@
             |-- GridMotion.css
             |-- GridMotion.jsx
     |-- vite.config.js
+|-- readme.md
 |-- server
     |-- .env
     |-- .gitignore
