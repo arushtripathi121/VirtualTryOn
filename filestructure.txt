@@ -34,10 +34,12 @@
     |-- .env
     |-- .gitignore
     |-- config
+        |-- cloudinary.js
         |-- database.js
         |-- googleConfig.js
     |-- controllers
         |-- authController.js
+        |-- generatorController.js
     |-- index.js
     |-- middlewares
         |-- authMiddleware.js

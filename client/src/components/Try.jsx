@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import api from "../hooks/api";
 
 const Try = () => {
     const [imageA, setImageA] = useState(null);
     const [imageB, setImageB] = useState(null);
     const [previewA, setPreviewA] = useState(null);
     const [previewB, setPreviewB] = useState(null);
-    const [maskType, setMaskType] = useState('overall');
+    const [maskType, setMaskType] = useState("overall");
+    const [loading, setLoading] = useState(false);
+    const [generatedImage, setGeneratedImage] = useState(null);
 
     useEffect(() => {
         if (imageA) {
@@ -23,16 +26,40 @@ const Try = () => {
         } else setPreviewB(null);
     }, [imageB]);
 
-    const handleCreateImage = () => {
+    const handleCreateImage = async () => {
         if (!imageA || !imageB) {
-            alert('Please upload both images before creating your image.');
+            alert("Please upload both images before creating your image.");
             return;
         }
-        alert(`Generating your ${maskType} masked image...`);
+
+        try {
+            setLoading(true);
+            setGeneratedImage(null);
+
+            const formData = new FormData();
+            formData.append("media", imageA);
+            formData.append("garment", imageB);
+            formData.append("mask_type", maskType);
+
+            const response = await api.post("/generate", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+
+            if (response.data.success) {
+                setGeneratedImage(response.data.finalImageUrl);
+            } else {
+                alert(response.data.message || "Something went wrong.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to generate image.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-10 text-white">
             <h2 className="text-3xl font-semibold bg-gradient-to-r from-blue-400 to-sky-400 bg-clip-text text-transparent tracking-tight">
                 Create Your Image
             </h2>
@@ -91,16 +118,16 @@ const Try = () => {
                 <div className="text-sm text-gray-400">Mask Type</div>
                 <div className="inline-flex rounded-2xl border border-gray-700/60 bg-[#101010] overflow-hidden">
                     {[
-                        { key: 'overall', label: 'Overall' },
-                        { key: 'upper', label: 'Upper' },
-                        { key: 'lower', label: 'Lower' },
+                        { key: "overall", label: "Overall" },
+                        { key: "upper", label: "Upper" },
+                        { key: "lower", label: "Lower" },
                     ].map((opt) => (
                         <button
                             key={opt.key}
                             onClick={() => setMaskType(opt.key)}
                             className={`px-4 py-2 text-sm transition ${maskType === opt.key
-                                ? 'bg-blue-500/20 text-blue-400'
-                                : 'text-gray-300 hover:bg-gray-800/50'
+                                ? "bg-blue-500/20 text-blue-400"
+                                : "text-gray-300 hover:bg-gray-800/50"
                                 }`}
                         >
                             {opt.label}
@@ -112,21 +139,42 @@ const Try = () => {
             <div className="flex flex-wrap gap-4 items-center">
                 <button
                     onClick={handleCreateImage}
-                    className="relative px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-white font-medium shadow-md hover:shadow-lg transition transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                    disabled={loading}
+                    className="relative px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-white font-medium shadow-md hover:shadow-lg transition transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500/40 disabled:opacity-50"
                 >
-                    Create Your Image
+                    {loading ? "Generating..." : "Create Your Image"}
                 </button>
 
                 <button
                     onClick={() => {
                         setImageA(null);
                         setImageB(null);
+                        setGeneratedImage(null);
                     }}
                     className="px-5 py-2.5 rounded-xl border border-gray-700/60 bg-[#101010] hover:bg-[#181818] transition text-gray-300"
                 >
                     Clear Images
                 </button>
             </div>
+
+            {loading && (
+                <div className="flex justify-center mt-10">
+                    <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            )}
+
+            {generatedImage && !loading && (
+                <div className="mt-10 flex flex-col items-center">
+                    <h3 className="text-xl font-medium mb-4 text-gray-200">
+                        Generated Try-On Image
+                    </h3>
+                    <img
+                        src={generatedImage}
+                        alt="Generated Try-On"
+                        className="max-h-[500px] rounded-xl shadow-lg object-contain"
+                    />
+                </div>
+            )}
         </div>
     );
 };
