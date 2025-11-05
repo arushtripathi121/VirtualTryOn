@@ -1,9 +1,10 @@
 const express = require('express');
-const { googleLogin } = require('../controllers/authController');
+const { googleLogin, logoutController, deleteAccountController } = require('../controllers/authController');
 const { verifyToken } = require('../middlewares/authMiddleware');
 const router = express.Router();
 const multer = require('multer');
 const { generateController } = require('../controllers/generatorController');
+const { getUserImagesController } = require('../controllers/userController');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -44,5 +45,10 @@ router.post('/generate', verifyToken,
   ]),
   generateController
 )
+
+router.get("/my-images", verifyToken, getUserImagesController);
+
+router.post("/logout", logoutController);
+router.delete("/delete-account", verifyToken, deleteAccountController);
 
 module.exports = router;

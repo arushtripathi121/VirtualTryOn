@@ -14,7 +14,6 @@
         |-- assets
             |-- react.svg
         |-- components
-            |-- Logout.jsx
             |-- Settings.jsx
             |-- Sidebar.jsx
             |-- Try.jsx
@@ -40,6 +39,7 @@
     |-- controllers
         |-- authController.js
         |-- generatorController.js
+        |-- userController.js
     |-- index.js
     |-- middlewares
         |-- authMiddleware.js

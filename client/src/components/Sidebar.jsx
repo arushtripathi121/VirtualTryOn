@@ -1,12 +1,11 @@
 import React from 'react';
-import { FaFlask, FaImages, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaFlask, FaImages, FaCog } from 'react-icons/fa';
 
 const Sidebar = ({ onSelect }) => {
     const listItems = [
         { name: 'Try', icon: <FaFlask /> },
         { name: 'Your Images', icon: <FaImages /> },
         { name: 'Settings', icon: <FaCog /> },
-        { name: 'Logout', icon: <FaSignOutAlt /> },
     ];
 
     return (
@@ -30,7 +29,9 @@ const Sidebar = ({ onSelect }) => {
                 </ul>
             </div>
 
-            <div className="text-sm text-gray-500 text-center">© 2025 Tryelle</div>
+            <div className="text-sm text-gray-500 text-center">
+                © 2025 Tryelle
+            </div>
         </div>
     );
 };
