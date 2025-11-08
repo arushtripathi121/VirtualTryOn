@@ -1,6 +1,9 @@
 |-- client
     |-- .env
     |-- .gitignore
+    |-- .vercel
+        |-- project.json
+        |-- README.txt
     |-- eslint.config.js
     |-- index.html
     |-- package-lock.json
@@ -28,11 +31,15 @@
         |-- react-bits-components
             |-- GridMotion.css
             |-- GridMotion.jsx
+    |-- vercel.json
     |-- vite.config.js
 |-- readme.md
 |-- server
     |-- .env
     |-- .gitignore
+    |-- .vercel
+        |-- project.json
+        |-- README.txt
     |-- config
         |-- cloudinary.js
         |-- database.js
@@ -50,3 +57,4 @@
     |-- package.json
     |-- routers
         |-- router.js
+    |-- vercel.json
